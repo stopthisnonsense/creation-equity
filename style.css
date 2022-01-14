@@ -738,6 +738,7 @@ Version: 1.0.0
 .team_block-statement .et_pb_module {
 	max-width: 80%;
 	align-self: center;
+	padding: 1rem;
 }
 
 .team_block-statement p {
@@ -789,12 +790,18 @@ Version: 1.0.0
 .team-member-container {
 	display: grid;
 	grid-template-columns: repeat(4, 1fr);
+	grid-auto-flow: dense;
 	/* grid-template-rows: repeat(auto-fit, 636px); */
 }
 
 @media (max-width: 980px) {
 	.team-member-container {
 		grid-template-columns: repeat(2, 1fr);
+	}
+}
+@media (max-width: 479px) {
+	.team-member-container {
+		grid-template-columns: repeat(1, 1fr);
 	}
 }
 
@@ -851,6 +858,7 @@ Version: 1.0.0
 	/* background-attachment: fixed; */
 	background-size: cover;
 	background-repeat: no-repeat;
+	min-height: 450px;
 }
 .team-member-container__background--1 {
 	grid-area: span 2 / span 2;
@@ -874,7 +882,7 @@ Version: 1.0.0
 
 .team-image,
 .team-member {
-	height: 450px;
+	min-height: 450px;
 	display: flex;
 	-webkit-transition: all 0.25s ease-in-out;
 	-moz-transition: all 0.25s ease-in;
@@ -919,7 +927,7 @@ Version: 1.0.0
 @media all and (min-width: 480px) {
 	.team-image,
 	.team-member {
-		height: 400px;
+		min-height: 400px;
 	}
 	.team-image h3,
 	.team-image span,
@@ -938,7 +946,7 @@ Version: 1.0.0
 @media all and (min-width: 767px) {
 	.team-image,
 	.team-member {
-		height: 500px;
+		min-height: 500px;
 	}
 	.team-image .et_pb_text_inner,
 	.team-member__content {
@@ -953,7 +961,7 @@ Version: 1.0.0
 @media all and (min-width: 980px) {
 	.team-image,
 	.team-member {
-		height: 375px;
+		min-height: 375px;
 	}
 	.team_block {
 		display: block !important;
@@ -967,7 +975,7 @@ Version: 1.0.0
 @media all and (min-width: 1200px) {
 	.team-image,
 	.team-member {
-		height: 500px;
+		min-height: 500px;
 	}
 	.team-image h3,
 	.team-image span,
@@ -978,7 +986,7 @@ Version: 1.0.0
 @media all and (min-width: 1500px) {
 	.team-image,
 	.team-member {
-		height: 636px;
+		min-height: 636px;
 	}
 	.team-image h3,
 	.team-image span,

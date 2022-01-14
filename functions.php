@@ -53,7 +53,7 @@ function team_members() {
     if( !wp_script_is( 'team_modal', 'enqueued' ) ) {
       wp_enqueue_script( 'team_modal' );
     }
-      $query_count = 0;
+      $query_count = 1;
 
     $backgrounds = get_field( 'backgrounds', 'options' );
 
@@ -67,7 +67,7 @@ function team_members() {
       $team_title = $team_query->display( 'job_title' );
       $team_quote = $team_query->display( 'quote' );
       $team_content = $team_query->display( 'post_content' );
-      $team_mail = $team_query->display( 'email' );
+      $team_mail = $team_query->display( 'email' ) ? $team_query->display( 'email' ) : 'info@creationequity.com' ;
 
       // var_dump( $team_query->fetch() );
       $template = "<div class='team-member team-member--$team_id' data-micromodal-trigger='team-$team_id' style='background-image:url($team_image)'>
@@ -151,18 +151,26 @@ function background_constructor( $data, $number ) {
     $background_row_start = $background_size['row_start'] ? $background_size['row_start'] : 'auto';
     $background_column_start = $background_size['column_start'] ? $background_size['column_start'] : 'auto'  ;
     $background_rows = $background_size[ 'rows' ];
+    $background_rows_mobile = $background_size[ 'rows' ] <= 2 ? $background_size[ 'rows' ] : 2;
     $background_columns = $background_size[ 'columns' ];
+    $background_columns_mobile = $background_size[ 'columns' ] <= 2 ? $background_size[ 'columns' ] : 2;
 
     $background_css = "
     <style>
       .team-member-container__background--$number {
-        grid-area: span $background_rows / span $background_columns;
+        grid-area:auto / auto / span 1 / span 1;
+      }
+      @media( min-width: 479px ) {
+        .team-member-container__background--$number {
+          grid-area: auto / auto / span $background_rows_mobile / span $background_columns_mobile;
+        }
       }
       @media( min-width: 980px ) {
         .team-member-container__background--$number {
           grid-area: $background_row_start / $background_column_start / span $background_rows / span $background_columns;
         }
       }
+
     </style>";
     $background_parallax = $background_css;
   }
@@ -181,6 +189,7 @@ function background_constructor( $data, $number ) {
   return $template;
 
 }
+
 function team_member_backgrounds( $number, $data ) {
   $template = '';
   // var_dump( $backgrounds );
