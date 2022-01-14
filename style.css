@@ -513,9 +513,24 @@ Version: 1.0.0
 /* Employee Modal */
 
 .is-open .team-member-popup__overlay {
-	opacity: 1;
+	animation: mmfadeIn 0.3s cubic-bezier(0, 0, 0.2, 1);
 }
-
+@keyframes mmfadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+@keyframes mmfadeOut {
+	from {
+		opacity: 1;
+	}
+	to {
+		opacity: 0;
+	}
+}
 .team-member-popup__overlay {
 	display: grid;
 	padding: 0px;
@@ -534,7 +549,7 @@ Version: 1.0.0
 	grid-template-rows: repeat(4, 1fr);
 	width: 80%;
 	height: 80%;
-	opacity: 0;
+	animation: mmfadeOut 0.3s cubic-bezier(0, 0, 0.2, 1);
 }
 
 @media (max-width: 767px) {

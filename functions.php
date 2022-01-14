@@ -74,7 +74,6 @@ function team_members() {
         <div class='team-member__content team-member__content--$team_id'>
           <h3 class='team-member__name team-member__name--$team_id'>$team_name</h3>
           <p class='team-member__title team-member__title--$team_id'><span>$team_title</span></p>
-          <p>$query_count</p>
         </div>
       </div>
       <div id='team-$team_id' class='team-member-popup team-member-popup--$team_id' data-micromodal-close>
@@ -130,15 +129,42 @@ function background_constructor( $data, $number ) {
   $background_data = '';
   $classes = "team-member-container__background team-member-container__background--$number";
 
+  // if( $background_size ) {
+  //   var_dump( $background_size );
+  // }
+
   if( $background_parallax && $background_bg ) {
     if( !wp_script_is( 'team_parallax', 'enqueued' ) ) {
       wp_enqueue_script( 'team_parallax' );
     }
     $background_data .=  "data-parallax='scroll' data-image-src='$background_bg' style='background:transparent'";
-    $classes .= " team_block-statement";
+    $classes .= " team_block-statement js-parallax--$number";
+
+    wp_add_inline_script( 'team_parallax', "jQuery( '.js-parallax--$number' ).parallax()" );
+
   } else {
     $background_data .= "style='background-image:url($background_bg)'";
 
+  }
+
+  if( $background_size ) {
+    $background_row_start = $background_size['row_start'] ? $background_size['row_start'] : 'auto';
+    $background_column_start = $background_size['column_start'] ? $background_size['column_start'] : 'auto'  ;
+    $background_rows = $background_size[ 'rows' ];
+    $background_columns = $background_size[ 'columns' ];
+
+    $background_css = "
+    <style>
+      .team-member-container__background--$number {
+        grid-area: span $background_rows / span $background_columns;
+      }
+      @media( min-width: 980px ) {
+        .team-member-container__background--$number {
+          grid-area: $background_row_start / $background_column_start / span $background_rows / span $background_columns;
+        }
+      }
+    </style>";
+    $background_parallax = $background_css;
   }
 
   if( $background_text ) {
@@ -149,7 +175,8 @@ function background_constructor( $data, $number ) {
 
   $template = "<div class='$classes' $background_data>
       $content
-    </div>";
+    </div>
+    $background_css";
 
   return $template;
 
