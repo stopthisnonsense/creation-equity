@@ -16,6 +16,9 @@ function my_theme_enqueue_styles() {
     " );
 
     wp_register_script( 'team_parallax', 'https://cdn.jsdelivr.net/parallax.js/1.4.2/parallax.min.js', [ 'jquery' ], null, true );
+    wp_add_inline_script( 'team_parallax', "jQuery( '.js-parallax--$number' ).parallax()" );
+
+    wp_register_script( 'fade_in', get_stylesheet_directory_uri() . '/js/fade-in.js', ['jquery'], null, true );
 
     // wp_enqueue_style( 'child-style', get_stylesheet_directory_uri() . '/style.css', array( 'parent-style' ), false );
 }
@@ -127,7 +130,7 @@ function background_constructor( $data, $number ) {
   $background_size = data_set( $data['size'] );
 
   $background_data = '';
-  $classes = "team-member-container__background team-member-container__background--$number";
+  $classes = "team-member-container__background team-member-container__background--$number ";
 
   // if( $background_size ) {
   //   var_dump( $background_size );
@@ -138,9 +141,9 @@ function background_constructor( $data, $number ) {
       wp_enqueue_script( 'team_parallax' );
     }
     $background_data .=  "data-parallax='scroll' data-image-src='$background_bg' style='background:transparent'";
-    $classes .= " team_block-statement js-parallax--$number";
+    $classes .= " team_block-statement js-parallax--$number ";
 
-    wp_add_inline_script( 'team_parallax', "jQuery( '.js-parallax--$number' ).parallax()" );
+
 
   } else {
     $background_data .= "style='background-image:url($background_bg)'";
@@ -176,9 +179,13 @@ function background_constructor( $data, $number ) {
   }
 
   if( $background_text ) {
-    $content = "<div class='et_pb_module'>
+    $classes .= ' team_text-statement ';
+    $content = "<div class='et_pb_module js-fadein js-fadein--$number'>
       $background_text
     </div>";
+    if( !wp_script_is( 'fade_in', 'enqueued' ) ) {
+      wp_enqueue_script( 'fade_in' );
+    }
   }
 
   $template = "<div class='$classes' $background_data>

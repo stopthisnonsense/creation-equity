@@ -534,7 +534,7 @@ Version: 1.0.0
 .team-member-popup__overlay {
 	display: grid;
 	padding: 0px;
-	padding-top: 100px;
+	/* padding-top: 100px; */
 	/* padding-bottom: 100px; */
 	border-radius: 0px;
 	border: 8px none #000000;
@@ -630,6 +630,9 @@ Version: 1.0.0
 	font-size: 16px;
 	line-height: 1.5;
 }
+.team-member-popup__info p {
+	padding-bottom: 1em !important;
+}
 
 .pum-container .profile-modal__image,
 .team-member-popup__image {
@@ -719,28 +722,49 @@ Version: 1.0.0
 		padding-top: 100px !important;
 	}
 	.pum-container .profile-modal__content .mailto-link,
-	.team-member-popup__info a {
+	.team-member-popup__info a,
+	.team-member-popup__info a:is(:visited, :active) {
 		color: #838383 !important;
 		padding-top: 10px;
 		cursor: pointer;
 	}
 	.pum-container .profile-modal__content .mailto-link:hover,
-	.team-member-popup__info a:is(:hover, :focus) {
+	.team-member-popup__info a:is(:hover) {
 		color: #1d252c !important;
 	}
 }
 
 /* Design Section Banners */
+
+.team_text-statement {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+}
+
+.team_text-statement:before {
+	display: block;
+	content: '';
+	background-color: rgb(255 255 255 / 20%);
+	position: absolute;
+	inset: 0;
+}
+
 .team_block-statement {
 	min-height: 400px;
 	height: 70vh;
 }
+.team_text-statement .et_pb_module,
 .team_block-statement .et_pb_module {
 	max-width: 80%;
 	align-self: center;
 	padding: 1rem;
+	position: relative;
 }
 
+.team_text-statement p,
 .team_block-statement p {
 	font-weight: 600;
 	line-height: 1.346;
@@ -752,6 +776,7 @@ Version: 1.0.0
 		min-height: 500px;
 		height: 60vh;
 	}
+	.team_text-statement p,
 	.team_block-statement p {
 		font-size: 35px;
 	}
@@ -761,31 +786,44 @@ Version: 1.0.0
 		min-height: 0;
 		height: auto;
 	}
+	.team_text-statement .et_pb_module,
 	.team_block-statement .et_pb_module {
 		max-width: 70%;
 	}
-	.team_block-statement p {
+	.team_text-statement p {
 		font-size: 30px;
 	}
 }
 @media all and (min-width: 1300px) {
+	.team_text-statement .et_pb_module,
 	.team_block-statement .et_pb_module {
 		max-width: 70%;
 	}
+	.team_text-statement p,
 	.team_block-statement p {
 		font-size: 40px;
 	}
 }
 @media all and (min-width: 1500px) {
+	.team_text-statement .et_pb_module,
 	.team_block-statement .et_pb_module {
 		max-width: 630px;
 	}
+	.team_text-statement p,
 	.team_block-statement p {
 		font-size: 52px;
 	}
 }
 
 /* Team Members */
+
+.js-fadein {
+	opacity: 0;
+	transition: opacity 0.2s linear;
+}
+.js-fadein--toggled {
+	opacity: 1;
+}
 
 .team-member-container {
 	display: grid;
